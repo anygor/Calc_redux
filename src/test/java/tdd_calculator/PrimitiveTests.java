@@ -1,18 +1,13 @@
 package tdd_calculator;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 public class PrimitiveTests {
     private double expected;
     private double actual;
-    @BeforeClass
-    public static void setUp() {
-    }
 
     @Test
     public void test_zero() {
