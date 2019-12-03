@@ -29,4 +29,11 @@ public class PrimitiveTests {
         actual = Calculator.calculate("2+3");
         assertTrue(expected == actual);
     }
+
+    @Test
+    public void test_simpleProduct(){
+        expected = 6;
+        actual = Calculator.calculate("2*3");
+        assertTrue(expected == actual);
+    }
 }

@@ -11,7 +11,7 @@ public class ComplexTests {
 
     @Test
     public void test_simpleAddition(){
-        expected = 5;
+        expected = 6;
         actual = Calculator.calculate("2+3+1");
         assertTrue(expected == actual);
     }
