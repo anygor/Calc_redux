@@ -2,9 +2,6 @@ package tdd_calculator;
 
 
 public class Calculator {
-    private static char exp_arr[];
-    private static int plus[];
-    private static int size;
 
     public static double calculate(String exp){
         if (exp.contains("+")){
@@ -12,6 +9,9 @@ public class Calculator {
         }
         if(exp.contains("*")){
             return Calculator.multi(exp);
+        }
+        if(exp.contains("-")){
+            return Calculator.sub(exp);
         }
         return Double.valueOf(exp);
     }
@@ -52,11 +52,43 @@ public class Calculator {
         return result;
     }
 
+    private static double sub(String exp){
+        double result = 0;
+        int minusAmount = exp.length() - exp.replaceAll("\\-", "").length();
+        double[] subtrahend = new double[minusAmount + 1];
+        for (int i = 0; i < subtrahend.length; i++) {
+            if (exp.contains("-")) {
+                if (exp.indexOf("-") == 0){
+                    exp = exp.substring(1);
+                    if(exp.contains("-")){
+                        subtrahend[i] = Double.parseDouble(exp.substring(0, exp.indexOf("-")));
+                        result -= subtrahend[i];
+                        exp = exp.substring(exp.indexOf("-"));
+                    }
+                    else{
+                        subtrahend[i] = Double.parseDouble(exp);
+                        result -= subtrahend[i];
+                    }
 
+                }
+                else{
+                    subtrahend[i] = Double.parseDouble(exp.substring(0, exp.indexOf("-")));
+                    result += subtrahend[i];
+                    exp = exp.substring(exp.indexOf("-"));
+                }
+            }
+            else {
+                subtrahend[i] = Double.parseDouble(exp);
+                result += subtrahend[i];
+            }
+        }
+        return result;
+    }
 
     public static void main( String[] args ) {
-        String a = "2*3";
+        String a = "10-3";
         double result = Calculator.calculate(a);
         System.out.println(result);
+        System.out.println(a.indexOf("-"));
     }
 }

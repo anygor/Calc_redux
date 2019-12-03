@@ -36,4 +36,11 @@ public class PrimitiveTests {
         actual = Calculator.calculate("2*3");
         assertTrue(expected == actual);
     }
+
+    @Test
+    public void test_simpleSubstract(){
+        expected = 7;
+        actual = Calculator.calculate("10-3");
+        assertTrue(expected == actual);
+    }
 }
