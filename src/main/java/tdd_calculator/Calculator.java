@@ -10,28 +10,31 @@ public class Calculator {
 
     public static double calculate(String exp){
         if (exp.contains("+")){
-            int plusAmount = exp.length() - exp.replaceAll("\\+", "").length();
-            double[] addendum = new double[plusAmount + 1];
-            addendum[0] = Double.parseDouble(exp.substring(0,exp.indexOf("+")));
-            exp = exp.substring(exp.indexOf("+") + 1);
-            addendum[1] = Double.parseDouble(exp.substring(0,exp.indexOf("+")));
-            exp = exp.substring(exp.indexOf("+") + 1);
-            addendum[2] = Double.parseDouble(exp);
-            return addendum[0] + addendum[1] + addendum[2];
+            return Calculator.add(exp);
         }
         return Double.valueOf(exp);
     }
 
-    private static double add(double[] addendum){
+    private static double add(String exp){
         double result = 0;
-        for(int i = 0; i < addendum.length; i++){
-            result += addendum[i];
+        int plusAmount = exp.length() - exp.replaceAll("\\+", "").length();
+        double[] addendum = new double[plusAmount + 1];
+        for (int i = 0; i < addendum.length; i++) {
+            if (exp.contains("+")) {
+                addendum[i] = Double.parseDouble(exp.substring(0, exp.indexOf("+")));
+                result += addendum[i];
+                exp = exp.substring(exp.indexOf("+") + 1);
+            }
+            else {
+                addendum[i] = Double.parseDouble(exp);
+                result += addendum[i];
+            }
         }
         return result;
     }
 
     public static void main( String[] args ) {
-        String a = "2+3+1";
+        String a = "2+3+1+5";
         double result = Calculator.calculate(a);
         System.out.println(result);
     }
