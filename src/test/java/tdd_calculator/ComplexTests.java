@@ -30,4 +30,24 @@ public class ComplexTests {
         assertTrue(expected == actual);
     }
 
+    @Test
+    public void test_complexSubstractionThatBeginsWithMinus(){
+        expected = -16;
+        actual = Calculator.calculate("-10-3-2-1");
+        assertTrue(expected == actual);
+    }
+
+    @Test
+    public void test_complexDivision(){
+        expected = 1;
+        actual = Calculator.calculate("6/3/2");
+        assertTrue(expected == actual);
+    }
+
+    @Test
+    public void test_multiplyAndAdd(){
+        expected = 2;
+        actual = Calculator.calculate("17-3*5");
+    }
+
 }

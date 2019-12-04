@@ -43,4 +43,18 @@ public class PrimitiveTests {
         actual = Calculator.calculate("10-3");
         assertTrue(expected == actual);
     }
+
+    @Test
+    public void test_simpleDivision(){
+        expected = 3.5;
+        actual = Calculator.calculate("7/2");
+        assertTrue(expected == actual);
+    }
+
+    @Test
+    public void test_simpleSquareRoot(){
+        expected = 2;
+        actual = Calculator.calculate("sqrt4");
+        assertTrue(expected == actual);
+    }
 }
