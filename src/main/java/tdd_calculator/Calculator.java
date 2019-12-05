@@ -53,15 +53,11 @@ public class Calculator {
         if (asterAmount != 0 || slashAmount != 0) {
             for (int i = 0; i < exp_list.size(); i++) {
                 if(asterAmount != 0 && exp_list.get(i).equals("*")){
-                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) * Double.parseDouble(exp_list.get(i + 1))));
-                    exp_list.remove(i - 1);
-                    exp_list.remove(i);
+                    multiplication(exp_list, i);
                     i--;
                 }
                 if(slashAmount != 0 && exp_list.get(i).equals("/")){
-                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) / Double.parseDouble(exp_list.get(i + 1))));
-                    exp_list.remove(i - 1);
-                    exp_list.remove(i);
+                    division(exp_list, i);
                     i--;
                 }
             }
@@ -71,15 +67,11 @@ public class Calculator {
         if (plusAmount != 0 || minusAmount != 0) {
             for (int i = 0; i < exp_list.size(); i++) {
                 if(plusAmount != 0 && exp_list.get(i).equals("+")){
-                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) + Double.parseDouble(exp_list.get(i + 1))));
-                    exp_list.remove(i - 1);
-                    exp_list.remove(i);
+                    addition(exp_list, i);
                     i--;
                 }
                 if(minusAmount != 0 && exp_list.get(i).equals("-")){
-                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) - Double.parseDouble(exp_list.get(i + 1))));
-                    exp_list.remove(i - 1);
-                    exp_list.remove(i);
+                    subtraction(exp_list, i);
                     i--;
                 }
             }
@@ -88,6 +80,31 @@ public class Calculator {
         return Double.parseDouble(exp_list.get(0));
     }
 
+    private static void multiplication(List<String> exp_list, int i){
+        exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) * Double.parseDouble(exp_list.get(i + 1))));
+        exp_list.remove(i - 1);
+        exp_list.remove(i);
+    }
+
+    private static void division(List<String> exp_list, int i){
+        exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) / Double.parseDouble(exp_list.get(i + 1))));
+        exp_list.remove(i - 1);
+        exp_list.remove(i);
+    }
+
+    private static void addition(List<String> exp_list, int i){
+        exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) + Double.parseDouble(exp_list.get(i + 1))));
+        exp_list.remove(i - 1);
+        exp_list.remove(i);
+    }
+    private static void subtraction(List<String> exp_list, int i){
+        exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) - Double.parseDouble(exp_list.get(i + 1))));
+        exp_list.remove(i - 1);
+        exp_list.remove(i);
+    }
+
+
     public static void main(String[] args) {
+
     }
 }
