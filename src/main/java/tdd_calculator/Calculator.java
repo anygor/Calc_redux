@@ -9,10 +9,12 @@ public class Calculator {
 
     public static double calculate(String expression) {
         expression = expression.replaceAll(" ", "");
-        int plusAmount = expression.length() - expression.replaceAll("\\+", "").length();
-        int minusAmount = expression.length() - expression.replaceAll("-", "").length();
-        int asterAmount = expression.length() - expression.replaceAll("\\*", "").length();
-        int slashAmount = expression.length() - expression.replaceAll("/", "").length();
+
+        int initial_length = expression.length();
+        int plusAmount = initial_length - expression.replaceAll("\\+", "").length();
+        int minusAmount = initial_length - expression.replaceAll("-", "").length();
+        int asterAmount = initial_length - expression.replaceAll("\\*", "").length();
+        int slashAmount = initial_length - expression.replaceAll("/", "").length();
         int totalAmount = plusAmount + minusAmount + asterAmount + slashAmount;
 
         String[] exp_arr = new String[totalAmount * 2 + 1];
@@ -47,51 +49,47 @@ public class Calculator {
             }
         }
 
-        int ind;
-        // Searching for multiplication
-        if (asterAmount != 0) {
-            for (int i = 0; i < asterAmount; i++) {
-                ind = exp_list.indexOf("*");
-                exp_list.set(ind, Double.toString(Double.parseDouble(exp_list.get(ind - 1)) * Double.parseDouble(exp_list.get(ind + 1))));
-                exp_list.remove(ind - 1);
-                exp_list.remove(ind);
+        // Searching for multiplication and/or division
+        if (asterAmount != 0 || slashAmount != 0) {
+            for (int i = 0; i < exp_list.size(); i++) {
+                if(asterAmount != 0 && exp_list.get(i).equals("*")){
+                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) * Double.parseDouble(exp_list.get(i + 1))));
+                    exp_list.remove(i - 1);
+                    exp_list.remove(i);
+                    i--;
+                }
+                if(slashAmount != 0 && exp_list.get(i).equals("/")){
+                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) / Double.parseDouble(exp_list.get(i + 1))));
+                    exp_list.remove(i - 1);
+                    exp_list.remove(i);
+                    i--;
+                }
             }
         }
 
-        // Searching for division
-        if (slashAmount != 0) {
-            for (int i = 0; i < slashAmount; i++) {
-                ind = exp_list.indexOf("/");
-                exp_list.set(ind, Double.toString(Double.parseDouble(exp_list.get(ind - 1)) / Double.parseDouble(exp_list.get(ind + 1))));
-                exp_list.remove(ind - 1);
-                exp_list.remove(ind);
+        // Searching for addition and/or subtraction
+        if (plusAmount != 0 || minusAmount != 0) {
+            for (int i = 0; i < exp_list.size(); i++) {
+                if(plusAmount != 0 && exp_list.get(i).equals("+")){
+                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) + Double.parseDouble(exp_list.get(i + 1))));
+                    exp_list.remove(i - 1);
+                    exp_list.remove(i);
+                    i--;
+                }
+                if(minusAmount != 0 && exp_list.get(i).equals("-")){
+                    exp_list.set(i, Double.toString(Double.parseDouble(exp_list.get(i - 1)) - Double.parseDouble(exp_list.get(i + 1))));
+                    exp_list.remove(i - 1);
+                    exp_list.remove(i);
+                    i--;
+                }
             }
         }
 
-        // Searching for addition
-        if (plusAmount != 0) {
-            for (int i = 0; i < plusAmount; i++) {
-                ind = exp_list.indexOf("+");
-                exp_list.set(ind, Double.toString(Double.parseDouble(exp_list.get(ind - 1)) + Double.parseDouble(exp_list.get(ind + 1))));
-                exp_list.remove(ind - 1);
-                exp_list.remove(ind);
-            }
-        }
-
-        // Searching for subtraction
-        if (minusAmount != 0) {
-            for (int i = 0; i < minusAmount; i++) {
-                ind = exp_list.indexOf("-");
-                exp_list.set(ind, Double.toString(Double.parseDouble(exp_list.get(ind - 1)) - Double.parseDouble(exp_list.get(ind + 1))));
-                exp_list.remove(ind - 1);
-                exp_list.remove(ind);
-            }
-        }
         return Double.parseDouble(exp_list.get(0));
     }
 
     public static void main(String[] args) {
-        String expression = "2 + 3 * 45.3 * 90 + 20 - 8 / 20 - sqrt4";
+        String expression = "50-2*6+sqrt64";
         System.out.println(Calculator.calculate(expression));
     }
 }

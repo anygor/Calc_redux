@@ -47,6 +47,15 @@ public class ComplexTests {
     public void test_multiplyAndAdd(){
         expected = 2;
         actual = Calculator.calculate("17-3*5");
+        assertEquals(expected, actual, 0.0);
+    }
+
+    @Test
+    public void test_actionOrder(){
+        expected = 46;
+        actual = Calculator.calculate("50-2*6+sqrt64");
+        assertEquals(expected, actual, 0.0);
+
     }
 
     @Test

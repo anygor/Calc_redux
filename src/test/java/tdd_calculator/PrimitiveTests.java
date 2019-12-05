@@ -19,7 +19,7 @@ public class PrimitiveTests {
     @Test
     public void test_number(){
         expected = 15;
-        actual = Calculator.calculate(Double.valueOf(15).toString());
+        actual = Calculator.calculate("15");
         assertEquals(expected, actual, 0.0);
     }
 
