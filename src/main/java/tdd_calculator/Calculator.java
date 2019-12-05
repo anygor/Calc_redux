@@ -89,7 +89,5 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        String expression = "50-2*6+sqrt64";
-        System.out.println(Calculator.calculate(expression));
     }
 }
