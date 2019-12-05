@@ -1,118 +1,50 @@
 package tdd_calculator;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Calculator {
 
-    public static double calculate(String exp){
-        exp = exp.replaceAll(" ", "");
-        if(exp.contains("sqrt")){
-            return sqrt(exp);
-        }
-        if(exp.contains("*")){
-            return Calculator.multi(exp);
-        }
-        if(exp.contains("/")){
-            return Calculator.div(exp);
-        }
-        if (exp.contains("+")){
-            return Calculator.add(exp);
-        }
-        if(exp.contains("-")){
-            return Calculator.sub(exp);
-        }
+    public static double calculate(String exp) {
         return Double.parseDouble(exp);
     }
 
-    private static double add(String exp){
-        double result = 0;
-        int plusAmount = exp.length() - exp.replaceAll("\\+", "").length();
-        for (int i = 0; i < plusAmount + 1; i++) {
-            if (exp.contains("+")) {
-                result += Double.parseDouble(exp.substring(0, exp.indexOf("+")));
-                exp = exp.substring(exp.indexOf("+") + 1);
-            }
-            else {
-                result += Double.parseDouble(exp);
-            }
-        }
-        return result;
-    }
+    public static void main(String[] args) {
+        String expression = "-22*3-45.3*90+20-sqrt4-8/20";
+        expression = expression.replaceAll(" ", "");
+        int plusAmount = expression.length() - expression.replaceAll("\\+", "").length();
+        int minusAmount = expression.length() - expression.replaceAll("-", "").length();
+        int asterAmount = expression.length() - expression.replaceAll("\\*", "").length();
+        int slashAmount = expression.length() - expression.replaceAll("/", "").length();
+        int totalAmount = plusAmount + minusAmount + asterAmount + slashAmount;
 
-    private static double multi(String exp){
-        double result = 1;
-        int asterAmount = exp.length() - exp.replaceAll("\\*", "").length();
-        for (int i = 0; i < asterAmount + 1; i++) {
-            if (exp.contains("*")) {
-                result *= Double.parseDouble(exp.substring(0, exp.indexOf("*")));
-                exp = exp.substring(exp.indexOf("*") + 1);
-            }
-            else {
-                result *= Double.parseDouble(exp);
-            }
-        }
-        return result;
-    }
+        String[] exp_arr = new String[totalAmount * 2 + 1];
 
-    private static double sub(String exp){
-        double result = 0;
-        int minusAmount = exp.length() - exp.replaceAll("\\-", "").length();
-        if (exp.indexOf("-") != 0) {
-            minusAmount += 1;
-        }
-        for (int i = 0; i < minusAmount; i++) {
-            if (exp.contains("-")) {
-                if (exp.indexOf("-") == 0){
-                    exp = exp.substring(1);
-                    if(exp.contains("-")){
-                        result -= Double.parseDouble(exp.substring(0, exp.indexOf("-")));
-                        exp = exp.substring(exp.indexOf("-"));
-                    }
-                    else{
-                        result -= Double.parseDouble(exp);
-                    }
+        int startPoint = 0;
+        int expchar_counter = 0;
 
+
+        for (int i = 0; i < expression.length(); i++) {
+            if ((expression.contains("+") || expression.contains("-") || expression.contains("*") || expression.contains("/"))) {
+                if (expression.charAt(i) == '+' || expression.charAt(i) == '-' || expression.charAt(i) == '*' || expression.charAt(i) == '/') {
+                    exp_arr[expchar_counter] = expression.substring(0, i);
+                    exp_arr[expchar_counter + 1] = Character.toString(expression.charAt(i));
+                    expchar_counter += 2;
+                    startPoint = i + 1;
+                    expression = expression.substring(startPoint);
+                    i = -1;
                 }
-                else{
-                    result += Double.parseDouble(exp.substring(0, exp.indexOf("-")));
-                    exp = exp.substring(exp.indexOf("-"));
-                }
-            }
-            else {
-                result += Double.parseDouble(exp);
-            }
-        }
-        return result;
-    }
-
-    private static double div(String exp){
-        double result = Double.parseDouble(exp.substring(0, exp.indexOf("/")));
-        exp = exp.substring(exp.indexOf("/") + 1);
-        int slashAmount = exp.length() - exp.replaceAll("\\/", "").length();
-        for (int i = 0; i < slashAmount + 1; i++) {
-            if (exp.contains("/")) {
-                result /= Double.parseDouble(exp.substring(0, exp.indexOf("/")));
-                exp = exp.substring(exp.indexOf("/") + 1);
             } else {
-                result /= Double.parseDouble(exp);
+                exp_arr[expchar_counter] = expression;
+                break;
             }
         }
-        return result;
-    }
+        if(exp_arr[0].isEmpty())exp_arr[0] = "0";
 
-    private static double sqrt(String exp){
-        exp = exp.substring(exp.indexOf("sqrt") + 4);
-        return Math.sqrt(Double.parseDouble(exp));
-    }
-
-    private static String sort(String exp){
-        int indexBefore;
-        return exp;
-    }
-
-
-    public static void main( String[] args ) {
-        String expression = "-10.5-2-3-1";
-        double result = Calculator.calculate(expression);
-        System.out.println(result);
+        // Ищем умножение TODO
+        List<String> exp_list = Arrays.asList(exp_arr);
+        System.out.println(exp_list.toString());
+        System.out.println(exp_list.toString());
     }
 }
