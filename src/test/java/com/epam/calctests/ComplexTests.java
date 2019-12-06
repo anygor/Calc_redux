@@ -1,7 +1,8 @@
-package tdd_calculator;
+package com.epam.calctests;
 
 import static org.junit.Assert.assertEquals;
 
+import com.epam.tddcalculator.Calculator;
 import org.junit.Test;
 
 

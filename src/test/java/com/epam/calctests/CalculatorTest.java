@@ -1,4 +1,4 @@
-package tdd_calculator;
+package com.epam.calctests;
 
 
 import org.junit.runner.RunWith;
