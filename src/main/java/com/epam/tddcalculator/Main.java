@@ -11,12 +11,13 @@ public class Main {
         String expression;
         log.info("Calculator started.");
         do {
-            log.info("Type an expression you want to calculate. \n Type 'quit' to quit.");
+            log.info("Type an expression you want to calculate.\nType 'quit' to quit.");
             input = new Scanner(System.in);
             expression = input.nextLine();
             if (expression.equals("quit")) break;
             log.info("Your expression " + expression);
             log.info(Calculator.calculate(expression));
         } while (true);
+        log.info("Calculator finished.");
     }
 }
